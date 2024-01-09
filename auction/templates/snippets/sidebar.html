@@ -1,0 +1,184 @@
+{% load static %}
+<style type='text/css'>
+  .side{
+    height: 100vh !important;
+  } 
+</style>
+<aside class="main-sidebar sidebar-dark-primary elevation-4 side">
+    <!-- Brand Logo -->
+    <a class="navbar-brand" href="{% url 'home' %}">
+      <img loading="prelaod" decoding="async" class="img-fluid" width="160" src="{% static 'images/logo.png'%}" alt="Wallet">
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="info">
+          <a href="#" class="d-block">{{pro.user.first_name}} {{pro.user.last_name}}</a>
+        </div>
+      </div>
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+          {% if request.user.username %}
+          {% if error == "pat" %}
+          <li class="nav-item">
+            <a href="{% url 'profile1' %}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Home
+              </p>
+            </a>
+          </li>
+        
+          <li class="nav-item">
+            <a href="{% url 'view_auction' 0 %}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Auction
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'bidding_status' %}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Bidding
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'feedback' %}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                feedback
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'change_password1' %}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                change password
+              </p>
+            </a>
+          </li>
+      
+      </div>
+          {% else %}
+          <li class="nav-item">
+            <a href="{% url 'profile1' %}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Home
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'add_product' %}"  class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Add product
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'all_product' %}"  class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                All product
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'bidding_status' %}"  class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Bidding status 
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'feedback' %}"  class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                feedback
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'change_password1' %}"  class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                change password
+              </p>
+            </a>
+          </li>
+      {% endif %}
+        
+        <li class="nav-item">
+          <a href="{% url 'about' %}"  class="nav-link">
+            <i class="nav-icon fas fa-th"></i>
+            <p>
+              About
+            </p>
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a href="{% url 'contact' %}"  class="nav-link">
+            <i class="nav-icon fas fa-th"></i>
+            <p>
+              contact
+            </p>
+          </a>
+        </li>
+      
+          {% if request.user.is_authenticated %}
+
+            <li class="nav-item">
+              <a href="{% url 'logout' %}"  class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  logout
+                </p>
+              </a>
+            </li>
+          </ul>
+          {% endif %}
+          {% if not request.user.is_staff %}
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <ion-icon style="margin-right:4px;color:black" name="person-circle-sharp"></ion-icon>Welcome {{request.user.first_name}}
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="{% url 'profile1' %}">VIEW PROFILE</a>
+                  <a class="dropdown-item" href="{% url 'edit_profile1' %}">EDIT PROFILE</a>
+                  <a class="dropdown-item" href="{% url 'change_password1' %}">CHANGE PASSWORD</a>
+                </div>
+            </div>
+          {% else %}
+      
+          <li class="nav-item">
+            <h5  class="nav-link" style="color:red"><ion-icon style="margin-right:4px;color:white" name="person-circle-sharp"></ion-icon>Welcome {{request.user.username}}</h5>
+          </li>
+          {% endif %}
+              {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login_user' %}" style="color:black;text-align:right"><ion-icon style="margin-right:2px" name="log-in-sharp"></ion-icon>USER LOGIN</a>
+          </li>
+            <li class="nav-item">
+                  <a class="nav-link" href="{% url 'login_admin' %}" style="color:black;text-align:right"><ion-icon style="margin-right:2px" name="log-in-sharp"></ion-icon>ADMIN LOGIN</a>
+            </li>
+      
+          {% endif %}
+      
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+  </div>
+    <!-- /.sidebar -->
+  </aside>
