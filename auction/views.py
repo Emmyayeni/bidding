@@ -238,7 +238,7 @@ def profile(request):
         pro = Auction_User.objects.get(user=user)
         u = "trainer"
     d = {'pro':pro,'error':error,"u":u,'data':sign}
-    return render(request,'profile.html',d)
+    return render(request,'dashboard.html',d)
 
 def Logout(request):
     logout(request)
