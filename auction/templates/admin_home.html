@@ -1,6 +1,6 @@
-{% extends 'navigation3.html' %}
+{% extends 'admin_base.html' %}
 {% load static %}
-{% block body1 %}
+{% block content %}
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
@@ -67,7 +67,7 @@ h2, h4{
         <div style="height:100px;" class="col-md-3 prjdiv">
              <div class="container1" style="background:#07d100">
             <h2 style="color:white">{{all_b}}</h2>
-            <a href="{% url 'bidder_user' %"><h4 style="color:black">Total Bidder</h4>
+            <a href="{% url 'bidder_user' %}"><h4 style="color:black">Total Bidder</h4>
         </a>
              </div>
         </div>
@@ -78,25 +78,8 @@ h2, h4{
              </div>
         </div>
     </div>
+
 </div>
 
-
-
-
-	<footer class="site-footer">
-      <div class="container">
-
-        <div class="row pt-5 mt-5 text-center">
-          <div class="col-md-12">
-            <p style = "font-size : 30pt ; color : #FF0000 ; font-weight : bold">
-
-            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All Rights Reserved <span style = "color : brown">|</span> <span style = "color : #006400">This website is made with <i class="fas fa-heart icon-heart text-warning" aria-hidden="true"></i> by </span><a class= "glow" href="#" target="_blank" >Pankaj Panjwani</a>
-
-            </p>
-          </div>
-
-        </div>
-      </div>
-    </footer>
 
 {% endblock %}

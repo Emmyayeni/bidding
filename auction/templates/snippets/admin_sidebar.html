@@ -1,0 +1,34 @@
+{% load static %}
+<style type='text/css'>
+  .side{
+    height: 100vh !important;
+  } 
+</style>
+<aside class="main-sidebar sidebar-dark-primary elevation-4 side">
+    <!-- Brand Logo -->
+    <a class="navbar-brand" href="{% url 'home' %}">
+      <img loading="prelaod" decoding="async" class="img-fluid" width="160" src="{% static 'images/logo.png'%}" alt="Wallet">
+    </a>
+
+       <button class="dropdown1-btn"><i class="fa fa-cog"></i> User
+       <i class="fa fa-caret-down"></i>
+     </button>
+     <div class="dropdown1-container">
+       <a href="{% url 'bidder_user' %}"> Bidder User</a>
+       <a href="{% url 'seller_user' %}"> Seller User</a>
+     </div>
+   
+     <button class="dropdown1-btn"><i class="fa fa-cog"></i> Product Verification
+       <i class="fa fa-caret-down"></i>
+     </button>
+     <div class="dropdown1-container">
+       <a href="{% url 'new_product' %}"> New Product</a>
+       <a href="{% url 'all_product2' %}"> View All Product</a>
+     </div>
+   
+   
+       <a href="{% url 'result' %}"><i class="fa fa-folder"></i> Result</a>
+       <a href="{% url 'view_feedback' %}"><i class="fa fa-folder"></i> Feedback</a>
+   
+    <!-- /.sidebar -->
+  </aside>

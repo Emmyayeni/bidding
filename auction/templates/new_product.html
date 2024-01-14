@@ -1,5 +1,5 @@
-{% extends 'navigation3.html' %}
-{% block body1 %}
+{% extends 'admin_base.html' %}
+{% block content %}
  <div class="container" style="background:white">
 <center><h2 style = "font-family : 'Monotype Corsiva' ; color : #E6120E ; font-weight : bold;margin-top:2%">All New Product</h2></center><hr>
 <div class="container-fluid" style="margin-top:5%">
@@ -22,7 +22,7 @@
    <tbody>
 
 {% for i in prod %}
-{% ifequal i.product.status.status "pending" %}
+{% if i.product.status.status == "pending" %}
   <tr>
     <td>{{forloop.counter}}</td>
     <td>{{i.product.name}}</td>
@@ -34,7 +34,7 @@
     <td><a href="{% url 'product_detail2' i.product.id %}"><button class="btn btn-primary">Detail</button></a></td>
     <td><a href="{% url 'status' i.product.id %}"><button class="btn btn-primary">Assign</button></a></td>
   </tr>
-{% endifequal %}
+{% endif %}
 {% endfor %}
 
     </tbody>

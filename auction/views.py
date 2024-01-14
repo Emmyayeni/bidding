@@ -2,33 +2,37 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from .models import *
+from django.contrib import messages
 import datetime
 from django.db.models import Avg, Max, Min, Sum
 
 # Create your views here.
 def Home(request):
-    data = 0
-    error = ""
-    user=""
-    try:
-        user = User.objects.get(username=request.user.username)
-    except:
-        pass
-    try:
-        data = Bidder.objects.get(user=user)
-        if data:
-            error = "pat"
-            return redirect('profile1')
-    except:
-        pass
-    try:
-        user = User.objects.get(username=request.user.username)
-        data = Auction_User.objects.get(user=user)
-        return redirect('trainer_home')
-    except:
-        pass
-    d = {'error':error,'data':data}
-    return render(request, 'home.html')
+    if request.user.is_staff:
+        return redirect('admin_home')
+    else:
+        data = 0
+        error = ""
+        user=""
+        try:
+            user = User.objects.get(username=request.user.username)
+        except:
+            pass
+        try:
+            data = Bidder.objects.get(user=user)
+            if data:
+                error = "pat"
+                return redirect('profile1')
+        except:
+            pass
+        try:
+            user = User.objects.get(username=request.user.username)
+            data = Auction_User.objects.get(user=user)
+            return redirect('trainer_home')
+        except:
+            pass
+        d = {'error':error,'data':data}
+        return render(request, 'home.html')
 
 
 def new():
@@ -55,17 +59,19 @@ def Login_User(request):
             p = request.POST['pwd']
             user = authenticate(username=u, password=p)
             sign = ""
+            
             if user:
                 if user.is_staff:
 
                     try:
                         sign = Bidder.objects.get(user=user)
                     except:
-                        pass
+                        messages.error(request,'something went wrong')
+                        
                     if sign:
                         login(request, user)
                         error = "pat"
-                        return redirect('home')
+                        return redirect('admin_home')
                     else:
                         login(request, user)
                         error = "pat1"
@@ -74,10 +80,11 @@ def Login_User(request):
                     error = "yes"
                     return redirect('home')
             else:
-                error="not"
-        d = {'error': error}
+                messages.error(request,'invalid login')
+        #         error="not"
+        # d = {'error': error}
     
-        return render(request, 'login.html', d)
+        return render(request, 'login.html')
 
 
 def Login_Admin(request):
@@ -108,16 +115,20 @@ def Signup_User(request):
         d2 = request.POST['dob']
         reg = request.POST['reg']
         i = request.FILES['image']
-        user = User.objects.create_user(email=e, username=u, password=p, first_name=f,last_name=l)
-        mem = Member_fee.objects.get(fee="Unpaid")
-        if reg == "Bidder":
-            sign = Bidder.objects.create(membership=mem,user=user,contact=con,address=add,dob=d2,image=i)
-            return redirect('login')
-        else:
-            sign = Auction_User.objects.create(membership=mem,user=user,contact=con,address=add,dob=d2,image=i)
-            sign.save()
-            return redirect('login')
-        error = True
+        try:
+            user = User.objects.get(email=e,username=u)
+        except:
+            user = User.objects.create_user(email=e, username=u, password=p, first_name=f,last_name=l)
+            mem = Member_fee.objects.get(fee="paid")
+            if reg == "Bidder":
+                sign = Bidder.objects.create(membership=mem,user=user,contact=con,address=add,dob=d2,image=i)
+                return redirect('login')
+            else:
+                sign = Auction_User.objects.create(membership=mem,user=user,contact=con,address=add,dob=d2,image=i)
+                sign.save()
+                return redirect('login')
+            error = True
+        messages.error(request,f'user with {u} or {email} already exist')
     d = {'error':error}
     return render(request,'signup.html',d)
 
@@ -1134,6 +1145,7 @@ def product_detail2(request,pid):
     return render(request,'product_detail2.html',d)
 
 def Bidding_Status(request):
+
     if not request.user.is_authenticated:
         return redirect('login_user')
     data = 0
@@ -1143,6 +1155,7 @@ def Bidding_Status(request):
         data = Bidder.objects.get(user=user)
         if data:
             error = "pat"
+            return redirect('home')
     except:
         data = Auction_User.objects.get(user=user)
     if data.membership.fee == "Unpaid":

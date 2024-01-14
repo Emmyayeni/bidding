@@ -2,7 +2,13 @@
 <style type='text/css'>
   .side{
     height: 100vh !important;
+    background: white;
+    color: black;
+    
   } 
+  p{
+    color: black;
+  }
 </style>
 <aside class="main-sidebar sidebar-dark-primary elevation-4 side">
     <!-- Brand Logo -->
@@ -38,14 +44,6 @@
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Auction
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{% url 'bidding_status' %}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Bidding
               </p>
             </a>
           </li>
@@ -92,14 +90,14 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          {% comment %} <li class="nav-item">
             <a href="{% url 'bidding_status' %}"  class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Bidding status 
               </p>
             </a>
-          </li>
+          </li> {% endcomment %}
           <li class="nav-item">
             <a href="{% url 'feedback' %}"  class="nav-link">
               <i class="nav-icon fas fa-th"></i>

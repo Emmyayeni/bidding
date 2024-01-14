@@ -97,7 +97,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Log in</title>
+  <title>Sign up</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -126,7 +126,7 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
+      <p class="login-box-msg">Sign up to start your session</p>
 
       <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -139,15 +139,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="text" name='uname' class="form-control" placeholder="username">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="text" name='fname' class="form-control" placeholder="first name">
+          <input type="text" name='uname' class="form-control" placeholder="username" required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -155,7 +147,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="text" name='lname' class="form-control" placeholder="last name">
+          <input type="text" name='fname' class="form-control" placeholder="first name" required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -163,7 +155,15 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" name='pwd' class="form-control" placeholder="Password">
+          <input type="text" name='lname' class="form-control" placeholder="last name" required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" name='pwd' class="form-control" placeholder="Password" required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -171,23 +171,23 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="address" name='add' class="form-control" placeholder="address">
+          <input type="address" name='add' class="form-control" placeholder="address" required>
           <div class="input-group-append">
             <div class="input-group-text">
-              <span class="fas fa-address"></span>
+
             </div>
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="text" name='dob' class="form-control" placeholder="date of birth">
+          <input type="text" name='dob' class="form-control" placeholder="date of birth" required>
           <div class="input-group-append">
             <div class="input-group-text">
-              <span class="fas fa-date"></span>
+  
             </div>
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="file" class="form-control" name="image" >
+          <input type="file" class="form-control" name="image" required >
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-avatar"></span>
@@ -195,13 +195,13 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <select name='reg'>
+          <select name='reg' class='form-control'>
             <option value='Bidder'>Bidder</option>
             <option value='Action'>Auction</option>
           </select>
         </div>
         <div class="input-group mb-3">
-          <input type="tel" class="form-control" name="contact" placeholder='contact'>
+          <input type="tel" class="form-control" name="contact" placeholder='contact' required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-avatar"></span>
@@ -209,38 +209,29 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="remember">
-              <label for="remember">
-                Remember Me
-              </label>
-            </div>
-          </div>
           <!-- /.col -->
-          <div class="col-4">
+          <div class="col-12">
             <button type="submit" class="btn submit btn-block">Sign In</button>
           </div>
           <!-- /.col -->
         </div>
       </form>
 
-      <div class="social-auth-links text-center mb-3">
-        <p>- OR -</p>
-        <a href="#" class="btn btn-block submit">
-          <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-        </a>
-        <a href="#" class="btn btn-block btn-danger">
-          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-        </a>
-      </div>
-      <!-- /.social-auth-links -->
+      {% if messages %}
+      {% for message in messages %}
+        {% if message.tag == error %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          {{message}}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endif %}
+      {% endfor %}
+    {% endif %}
 
       <p class="mb-1">
-        <a href="forgot-password.html">I forgot my password</a>
+        <a href="{% url 'login_user' %}">login</a>
       </p>
     </div>
-    <!-- /.login-card-body -->
   </div>
 </div>
 <!-- /.login-box -->
