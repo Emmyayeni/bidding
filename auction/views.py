@@ -212,7 +212,7 @@ def Auction_Home(request):
         sign = Auction_User.objects.get(user=user)
     if sign.membership.fee == "Unpaid":
         return redirect('Member_Payment_mode')
-    d = {'error': error,'data':sign}
+    d = {'error': error,'pro':sign}
     return render(request,'dashboard.html',d)
 
 def profile(request):
